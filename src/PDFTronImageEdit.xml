@@ -12,6 +12,11 @@
                 <caption>File</caption>
                 <description>The file to edit</description>
             </property>
+            <property key="guid" type="expression" required="true">
+                <caption>File Id</caption>
+                <description>File Id</description>
+                <returnType type="Integer" />
+            </property>
         </propertyGroup>
     </properties>
 </widget>

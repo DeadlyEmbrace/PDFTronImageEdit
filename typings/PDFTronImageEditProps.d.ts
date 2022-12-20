@@ -5,6 +5,7 @@
  */
 import { CSSProperties } from "react";
 import { DynamicValue, FileValue } from "mendix";
+import { Big } from "big.js";
 
 export interface PDFTronImageEditContainerProps {
     name: string;
@@ -12,6 +13,7 @@ export interface PDFTronImageEditContainerProps {
     style?: CSSProperties;
     tabIndex?: number;
     file: DynamicValue<FileValue>;
+    guid: DynamicValue<Big>;
 }
 
 export interface PDFTronImageEditPreviewProps {
@@ -24,4 +26,5 @@ export interface PDFTronImageEditPreviewProps {
     styleObject?: CSSProperties;
     readOnly: boolean;
     file: string;
+    guid: string;
 }

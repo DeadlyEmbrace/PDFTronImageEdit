@@ -3,11 +3,21 @@ import WebViewer from './components/WebViewer';
 import ImageEditor from './components/ImageEditor';
 import Header from './components/Header';
 import "./ui/PDFTronImageEdit.css";
+import { PDFTronImageEditContainerProps } from 'typings/PDFTronImageEditProps';
+import { ValueStatus } from "mendix";
 
-const App = () => {
+declare const mx: any;
+
+const App = (props: PDFTronImageEditContainerProps) => {
   const [webviewerInstance, setWebViewerInstance] = useState<any>(null);
   const [imageEditorInstance, setImageEditorInstance] = useState<any>(null);
   const [pageEdit, setPageEdit] = useState(0);
+
+  const fileUri = props.file.status == ValueStatus.Available ? props.file.value.uri : "";
+  const fileName = props.file.status == ValueStatus.Available ? props.file.value.name : "";
+  const fileGuid = props.guid.status == ValueStatus.Available ? props.guid.value : 0;
+
+  console.info("File URI: " + fileUri);
 
   const getViewerInstance = (instance : any) => {
     setWebViewerInstance(instance);
@@ -58,13 +68,41 @@ const App = () => {
     doc.insertPages(secondDoc, pagesToInsert, pageIndexToInsert).then(async () => {
       await doc.removePages([pageEdit+1]);
     });
+    await saveDoc();
   };
+
+  const saveDoc = async() => {
+    const { docViewer, annotManager, PDFNet } = webviewerInstance;
+    
+    let doc = docViewer.getDocument();
+    let xfdfString = await annotManager.exportAnnotations();
+    let data = await doc.getFileData({xfdfString});
+    let pdfDoc = await PDFNet.PDFDoc.createFromBuffer(data);
+
+    const buf = await pdfDoc.saveMemoryBuffer(PDFNet.SDFDoc.SaveOptions.e_linearized);
+    const arr = new Uint8Array(buf);
+    const blob = new Blob([arr], { type: "application/pdf" });
+
+    console.info("Filename: " + fileName + " FileGUID: " + fileGuid);
+
+    mx.data.saveDocument(
+      fileGuid,
+      fileName,
+      {},
+      blob,
+      () => {
+      },
+      (e: any) => {
+          console.error(e);
+      }
+    );
+  }
 
   return (
     <div>
-    <Header editImage={editImage} saveImage={saveImage} />  
       <div className="flex-container">
-        <WebViewer getInstance={getViewerInstance} />
+        <WebViewer getInstance={getViewerInstance} uri={fileUri} />
+        <Header editImage={editImage} saveImage={saveImage} />
         <ImageEditor getInstance={getImageEditorInstance} />
       </div>
     </div>
