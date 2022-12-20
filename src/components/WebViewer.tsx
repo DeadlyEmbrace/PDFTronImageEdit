@@ -24,7 +24,7 @@ const PDFTronWebViewer = ({getInstance, uri} : any) : any => {
       }
     }, [fileUri, instance])
 
-    return (<div className='pdfDiv' id='pdftron-webviewer' ref={viewer}></div>);
+    return (<div className='pdfDiv verticalEditor' id='pdftron-webviewer' ref={viewer}></div>);
 };
 
 export default PDFTronWebViewer;

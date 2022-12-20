@@ -12,7 +12,7 @@ const ImageEditor = ({getInstance} : any) : any => {
     "common.bisize.width": "251px",
     "common.bisize.height": "50px",
     "common.backgroundImage": "none",
-    "common.backgroundColor": "#1e1e1e",
+    "common.backgroundColor": "#fff",
     "common.border": "0px",
 
     // header
@@ -28,9 +28,9 @@ const ImageEditor = ({getInstance} : any) : any => {
     "loadButton.fontSize": "12px",
 
     // download button
-    "downloadButton.backgroundColor": "#fdba3b",
+    "downloadButton.backgroundColor": "#fff",
     "downloadButton.border": "1px solid #fdba3b",
-    "downloadButton.color": "#fff",
+    "downloadButton.color": "black",
     "downloadButton.fontFamily": "NotoSans, sans-serif",
     "downloadButton.fontSize": "12px",
 
@@ -47,8 +47,8 @@ const ImageEditor = ({getInstance} : any) : any => {
     "menu.iconSize.height": "24px",
 
     // submenu primary color
-    "submenu.backgroundColor": "#1e1e1e",
-    "submenu.partition.color": "#858585",
+    "submenu.backgroundColor": "#e9e9e9",
+    "submenu.partition.color": "black",
 
     // submenu icons
     "submenu.normalIcon.path": "./dist/svg/icon-a.svg",
@@ -61,7 +61,7 @@ const ImageEditor = ({getInstance} : any) : any => {
     // submenu labels
     "submenu.normalLabel.color": "#858585",
     "submenu.normalLabel.fontWeight": "lighter",
-    "submenu.activeLabel.color": "#fff",
+    "submenu.activeLabel.color": "black",
     "submenu.activeLabel.fontWeight": "lighter",
 
     // checkbox style
@@ -69,7 +69,7 @@ const ImageEditor = ({getInstance} : any) : any => {
     "checkbox.backgroundColor": "#fff",
 
     // rango style
-    "range.pointer.color": "#fff",
+    "range.pointer.color": "black",
     "range.bar.color": "#666",
     "range.subbar.color": "#d1d1d1",
 
@@ -77,17 +77,17 @@ const ImageEditor = ({getInstance} : any) : any => {
     "range.disabledBar.color": "#282828",
     "range.disabledSubbar.color": "#414141",
 
-    "range.value.color": "#fff",
+    "range.value.color": "black",
     "range.value.fontWeight": "lighter",
     "range.value.fontSize": "11px",
     "range.value.border": "1px solid #353535",
-    "range.value.backgroundColor": "#151515",
-    "range.title.color": "#fff",
+    "range.value.backgroundColor": "#fff",
+    "range.title.color": "black",
     "range.title.fontWeight": "lighter",
 
     // colorpicker style
     "colorpicker.button.border": "1px solid #1e1e1e",
-    "colorpicker.title.color": "#fff"
+    "colorpicker.title.color": "black"
   };
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const ImageEditor = ({getInstance} : any) : any => {
         menuBarPosition: "right"
       },
       cssMaxWidth: 700,
-      cssMaxHeight: 750,
+      cssMaxHeight: 1200,
       selectionStyle: {
         cornerSize: 20,
         rotatingPointOffset: 70
@@ -114,7 +114,7 @@ const ImageEditor = ({getInstance} : any) : any => {
     getInstance(instance);
   }, []);
 
-  return <div className="imageEditor" id="tui-image-editor" ref={imageEditor}></div>;
+  return <div className="imageEditor verticalEditor" id="tui-image-editor" ref={imageEditor}></div>;
 };
 
 export default ImageEditor;
