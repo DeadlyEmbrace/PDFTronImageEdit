@@ -4,13 +4,14 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
+import { DynamicValue, FileValue } from "mendix";
 
 export interface PDFTronImageEditContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    sampleText: string;
+    file: DynamicValue<FileValue>;
 }
 
 export interface PDFTronImageEditPreviewProps {
@@ -22,5 +23,5 @@ export interface PDFTronImageEditPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
-    sampleText: string;
+    file: string;
 }

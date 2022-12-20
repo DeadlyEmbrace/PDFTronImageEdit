@@ -1,5 +1,6 @@
 import { createElement, useEffect, useRef } from "react";
 import TUIImageEditor from "tui-image-editor";
+import "../ui/PDFTronImageEdit.css";
 
 const ImageEditor = ({getInstance} : any) : any => {
   const imageEditor = useRef<any>(null);
@@ -93,7 +94,7 @@ const ImageEditor = ({getInstance} : any) : any => {
     var instance = new TUIImageEditor(imageEditor.current, {
       includeUI: {
         loadImage: {
-          path: "banana.jpg",
+          path: "blank.png",
           name: "SampleImage"
         },
         menu: ['crop', 'flip', 'rotate', 'filter'],
@@ -102,7 +103,7 @@ const ImageEditor = ({getInstance} : any) : any => {
         menuBarPosition: "right"
       },
       cssMaxWidth: 700,
-      cssMaxHeight: 500,
+      cssMaxHeight: 750,
       selectionStyle: {
         cornerSize: 20,
         rotatingPointOffset: 70
@@ -113,7 +114,7 @@ const ImageEditor = ({getInstance} : any) : any => {
     getInstance(instance);
   }, []);
 
-  return <div id="tui-image-editor" ref={imageEditor}></div>;
+  return <div className="imageEditor" id="tui-image-editor" ref={imageEditor}></div>;
 };
 
 export default ImageEditor;
