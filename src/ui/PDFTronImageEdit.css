@@ -3,12 +3,12 @@ Place your custom CSS here
 */
 
 .pdfEditDiv {
-    height: 800px;
+    height: 740px;
     width: 50%;
 }
 
 .imageEditor {
-    height: 800px !important;
+    height: 740px !important;
 }
 
 .flex-container {

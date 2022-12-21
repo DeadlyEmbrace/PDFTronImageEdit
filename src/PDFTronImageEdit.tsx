@@ -45,6 +45,7 @@ const App = (props: PDFTronImageEditContainerProps) => {
   };
 
   const saveImage = async () => {
+    console.trace("Saving page");
     const { docViewer, CoreControls } = webviewerInstance;
 
     let image = await imageEditorInstance.toDataURL();
@@ -60,21 +61,22 @@ const App = (props: PDFTronImageEditContainerProps) => {
     const doc = docViewer.getDocument();
 
     const secondDoc = await CoreControls.createDocument(blob, {
-      extension: 'png',
+      loadAsPDF: true,
+      extension: "png"
     });
     const pagesToInsert = [1];
     const pageIndexToInsert = pageEdit;
 
-    doc.insertPages(secondDoc, pagesToInsert, pageIndexToInsert).then(async () => {
+    await doc.insertPages(secondDoc, pagesToInsert, pageIndexToInsert).then(async () => {
       await doc.removePages([pageEdit+1]);
     });
-    await saveDoc();
+    await saveDoc(doc);
   };
 
-  const saveDoc = async() => {
-    const { docViewer, annotManager, PDFNet } = webviewerInstance;
+  const saveDoc = async(doc: any) => {
+    console.trace("Saving document");
+    const { annotManager, PDFNet } = webviewerInstance;
     
-    let doc = docViewer.getDocument();
     let xfdfString = await annotManager.exportAnnotations();
     let data = await doc.getFileData({xfdfString});
     let pdfDoc = await PDFNet.PDFDoc.createFromBuffer(data);
@@ -83,14 +85,13 @@ const App = (props: PDFTronImageEditContainerProps) => {
     const arr = new Uint8Array(buf);
     const blob = new Blob([arr], { type: "application/pdf" });
 
-    console.info("Filename: " + fileName + " FileGUID: " + fileGuid);
-
     mx.data.saveDocument(
       fileGuid,
       fileName,
       {},
       blob,
       () => {
+        console.trace("Document saved");
       },
       (e: any) => {
           console.error(e);

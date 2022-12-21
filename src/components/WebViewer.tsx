@@ -19,7 +19,8 @@ const PDFTronWebViewer = ({getInstance, uri} : any) : any => {
     }, []);
 
     useEffect(() => {
-      if(instance) {
+      if(instance && fileUri !== "") {
+        console.trace("Loading document " + fileUri);
         instance.UI.loadDocument(fileUri);
       }
     }, [fileUri, instance])
