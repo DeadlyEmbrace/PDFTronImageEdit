@@ -1,7 +1,7 @@
 {
   "name": "pdftronimageedit",
   "widgetName": "PDFTronImageEdit",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Widget that leverages PDFTron and Toast UI Image Editor to allow modifying PDF images",
   "copyright": "EPI-USE 2022",
   "author": "Ralph Viktor",
@@ -31,7 +31,7 @@
     "@types/react-dom": "~17.0.1"
   },
   "dependencies": {
-    "@pdftron/webviewer": "8.10.0-20221209",
+    "@pdftron/webviewer": "^8.11",
     "@types/file-saver": "^2.0.5",
     "classnames": "^2.2.6",
     "file-saver": "^2.0.5",
