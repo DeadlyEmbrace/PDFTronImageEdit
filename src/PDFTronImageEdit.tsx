@@ -28,12 +28,13 @@ const App = (props: PDFTronImageEditContainerProps) => {
   };
 
   const editImage = async () => {
-    const { docViewer, PDFNet } = webviewerInstance;
-    await PDFNet.initialize();
+    const docViewer = webviewerInstance.Core.documentViewer;
+    const pdfNet = webviewerInstance.Core.PDFNet;
+    await pdfNet.initialize();
     const doc = await docViewer.getDocument().getPDFDoc();
     doc.initSecurityHandler();
     doc.lock();
-    const pdfdraw = await PDFNet.PDFDraw.create(92);
+    const pdfdraw = await pdfNet.PDFDraw.create(92);
     setPageEdit(docViewer.getCurrentPage());
     const itr = await doc.getPageIterator(docViewer.getCurrentPage());
     const currPage = await itr.current();
@@ -46,7 +47,7 @@ const App = (props: PDFTronImageEditContainerProps) => {
 
   const saveImage = async () => {
     console.trace("Saving page");
-    const { docViewer, CoreControls } = webviewerInstance;
+    const docViewer = webviewerInstance.Core.documentViewer;
 
     let image = await imageEditorInstance.toDataURL();
     const base64Data = image.replace(/^data:image\/png;base64,/, '');
@@ -60,7 +61,7 @@ const App = (props: PDFTronImageEditContainerProps) => {
 
     const doc = docViewer.getDocument();
 
-    const secondDoc = await CoreControls.createDocument(blob, {
+    const secondDoc = await webviewerInstance.Core.createDocument(blob, {
       loadAsPDF: true,
       extension: "png"
     });
@@ -75,13 +76,14 @@ const App = (props: PDFTronImageEditContainerProps) => {
 
   const saveDoc = async(doc: any) => {
     console.trace("Saving document");
-    const { annotManager, PDFNet } = webviewerInstance;
+    const pdfNet = webviewerInstance.Core.PDFNet;
+    const annotManager = webviewerInstance.Core.annotationManager;
     
     let xfdfString = await annotManager.exportAnnotations();
     let data = await doc.getFileData({xfdfString});
-    let pdfDoc = await PDFNet.PDFDoc.createFromBuffer(data);
+    let pdfDoc = await pdfNet.PDFDoc.createFromBuffer(data);
 
-    const buf = await pdfDoc.saveMemoryBuffer(PDFNet.SDFDoc.SaveOptions.e_linearized);
+    const buf = await pdfDoc.saveMemoryBuffer(pdfNet.SDFDoc.SaveOptions.e_linearized);
     const arr = new Uint8Array(buf);
     const blob = new Blob([arr], { type: "application/pdf" });
 
