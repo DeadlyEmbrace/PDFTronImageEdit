@@ -7,15 +7,20 @@ const PDFTronWebViewer = ({getInstance, uri} : any) : any => {
     const [instance, setInstance] = useState<any>();
     const fileUri = uri;
 
+    const loadWebViewer = async() => {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      WebViewer({
+        path: '../resources/webviewer/10.1.0/', // point to where the files you copied are served from
+        fullAPI: true,
+      }, viewer.current).then((instance) => {
+        // Call APIs here
+        getInstance(instance);
+        setInstance(instance);
+      })
+    };
+
     useEffect(() => {
-        WebViewer({
-            path: '../resources/public/', // point to where the files you copied are served from
-            fullAPI: true,
-          }, viewer.current).then((instance) => {
-            // Call APIs here
-            getInstance(instance);
-            setInstance(instance);
-          })
+      loadWebViewer();
     }, []);
 
     useEffect(() => {
