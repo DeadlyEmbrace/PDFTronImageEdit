@@ -1,7 +1,7 @@
 {
   "name": "pdftronimageedit",
   "widgetName": "PDFTronImageEdit",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Widget that leverages PDFTron and Toast UI Image Editor to allow modifying PDF images",
   "copyright": "EPI-USE 2022",
   "author": "Ralph Viktor",
@@ -26,15 +26,29 @@
   },
   "devDependencies": {
     "@mendix/pluggable-widgets-tools": "^9.0.0",
-    "@types/big.js": "^6.0.2",
-    "@types/react": "~17.0.1",
-    "@types/react-dom": "~17.0.1"
+    "@types/big.js": "^6.0.2"
   },
   "dependencies": {
-    "@pdftron/webviewer": "10.3.0",
+    "@pdftron/webviewer": "10.6.0",
     "@types/file-saver": "^2.0.5",
     "classnames": "^2.2.6",
     "file-saver": "^2.0.5",
     "tui-image-editor": "^3.15.3"
+  },
+  "overrides": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.70.7",
+    "@types/react": "18.0.0",
+    "@types/react-dom": "18.0.0",
+    "@types/react-native": "0.70.0"
+  },
+  "resolutions": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.70.7",
+    "@types/react": "18.0.0",
+    "@types/react-dom": "18.0.0",
+    "@types/react-native": "0.70.0"
   }
 }
